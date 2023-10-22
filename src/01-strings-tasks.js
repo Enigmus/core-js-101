@@ -199,26 +199,24 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
+  const leftTop = '┌';
+  const rightTop = '┐\n';
+  const leftBottom = '└';
+  const rightBottom = '┘\n';
+  const beginLine = '│';
+  const endLine = '│\n';
+  const middleLine = '─';
+  const middleSpace = ' ';
   let out = '';
-  for (let i = 1; i <= height; i += 1) {
-    for (let j = 1; j <= width; j += 1) {
-
-      if (i == 1 && j == 1) out += '┌';
-      if (i == 1 && j < width - 1) out += '─';
-      if (i == 1 && j == width) out += '┐\n';
-      if (i < height && j == 1) out += '│';
-
-      if (i < height && j == width) out += '│\n';
-      if (i == height && j == 1) out += '└';
-      if (i == height && j < width - 1) out += '─';
-      if (i == height && j == width) out += '┘';
-    }
+  if (width > 0 && height > 0) {
+    out += leftTop;
+    out += middleLine.repeat(width - 2) + rightTop;
+    const middle = beginLine + middleSpace.repeat(width - 2) + endLine;
+    for (let i = 0; i < height - 2; i += 1) out += middle;
+    out += leftBottom + middleLine.repeat(width - 2) + rightBottom;
   }
   return out;
 }
-
-console.log(getRectangleString(6, 5));
-
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
