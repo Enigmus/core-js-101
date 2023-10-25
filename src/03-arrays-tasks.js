@@ -143,13 +143,9 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 'x', 0  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-  const end = arr.slice(index, arr.length);
-  arr.splice(index, arr.length);
-  arr.push(item);
-  return arr.concat(end);
+  arr.splice(index, 0, item);
+  return arr;
 }
-
-// console.log(insertItem([1, 2, 3, 4, 5], 0, 0));
 /**
  * Returns the n first items of the specified array
  *
@@ -198,8 +194,13 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  return arr.reduce(
+    (acc, el) => acc.concat(
+      `${el.join(',')}\n`,
+    ),
+    '',
+  ).slice(0, -1);
 }
 
 /**
@@ -271,13 +272,15 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(arr) {
-  const res = Array.from(arr, (el, ind) => {
+function propagateItemsByPositionIndex(/* arr */) {
+  // const res = Array.from(arr, (el, ind) => {
 
-  });
+  // });
+
+  throw new Error('Not implemented');
 }
 
-console.log(propagateItemsByPositionIndex([1, 2, 3, 4, 5]));
+// console.log(propagateItemsByPositionIndex([1, 2, 3, 4, 5]));
 /**
  * Returns the 3 largest numbers from the specified array
  *
@@ -342,7 +345,7 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-  return arr.reduce((acc, el) => { acc += el; return acc; }, 0);
+  return arr.reduce((acc, el) => acc + el, 0);
 }
 
 /**
@@ -443,6 +446,7 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(/* n */) {
+  // let arr =
   throw new Error('Not implemented');
 }
 
