@@ -275,11 +275,8 @@ function propagateItemsByPositionIndex(arr) {
       return a;
     })
     .flat(1);
-
-  // throw new Error('Not implemented');
 }
 
-// console.log(propagateItemsByPositionIndex([1, 2, 3, 4, 5]));
 /**
  * Returns the 3 largest numbers from the specified array
  *
