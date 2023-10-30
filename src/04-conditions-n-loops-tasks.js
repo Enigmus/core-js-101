@@ -255,7 +255,7 @@ function isCreditCardNumber(ccn) {
   const ccnStr = ccn.toString();
   let sum = 0;
   for (let i = 0; i < ccnStr.length; i += 1) {
-    let digit = +(ccnStr[i]);
+    let digit = +ccnStr[i];
     if (i % 2 === ccnStr.length % 2) {
       digit *= 2;
       if (digit > 9) digit -= 9;
@@ -281,9 +281,12 @@ function isCreditCardNumber(ccn) {
  */
 function getDigitalRoot(num) {
   if (num < 10) return num;
-  return getDigitalRoot(num.toString().split('').reduce(
-    (acc, el) => acc + Number(el), 0,
-  ));
+  return getDigitalRoot(
+    num
+      .toString()
+      .split('')
+      .reduce((acc, el) => acc + Number(el), 0),
+  );
 }
 
 /**
@@ -369,10 +372,37 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const arr = [];
+  if (m1[0].length !== m2.length) return false;
+
+  for (let i = 0; i < m1.length; i += 1) arr[i] = [];
+
+  for (let k = 0; k < m2[0].length; k += 1) {
+    for (let i = 0; i < m1.length; i += 1) {
+      let el = 0;
+      for (let j = 0; j < m2.length; j += 1) el += m1[i][j] * m2[j][k];
+      arr[i][k] = el;
+    }
+  }
+
+  return arr;
+  // throw new Error('Not implemented');
 }
 
+/* console.log(
+  getMatrixProduct(
+    [
+      [4, 2],
+      [3, 1],
+      [1, 5],
+    ],
+    [
+      [1, 2, 2],
+      [3, 1, 1],
+    ]
+  )
+); */
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
  * See the details: https://en.wikipedia.org/wiki/Tic-tac-toe
@@ -403,9 +433,65 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let result = 'undefined';
+  const combine = [
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [0, 0, 1, 0, 1, 0, 1, 0, 0],
+    [1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1],
+    [1, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 1, 0, 0, 1],
+  ];
+  let arrX = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  let arrO = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  position.forEach((elem, ind) => elem.forEach((el, i) => {
+    if (el === 'X') arrX[ind][i] = 1;
+    if (el === '0') arrO[ind][i] = 1;
+  }));
+
+  console.log(arrO);
+  arrX = arrX.flat(2);
+  arrO = arrO.flat(2);
+
+  const X = combine.some((elem) => elem.every((el, ind) => el === arrX[ind]) === true);
+
+  const O = combine.some(
+    (elem) =>
+      elem.every((el, ind) => {  return el === arrO[ind]}) === true
+  );
+
+
+  if (X) result = 'X';
+  else if (O) result = '0';
+  return result;
 }
+
+/*  console.log(
+  evaluateTicTacToePosition([
+    ['0', 'X', '0'],
+    ['X', 'X', '0'],
+    ['0', 'X',],
+  ])
+); */
+
+ console.log(
+  evaluateTicTacToePosition([
+    ['0', '0', '0'],
+    ['', 'X', '0'],
+    ['X',,],
+  ])
+);
 
 module.exports = {
   getFizzBuzz,
