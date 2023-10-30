@@ -434,6 +434,10 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
+  function check(combine, arr, val) {
+    const a = arr.flat(1);
+    return combine.some((elem) => elem.every((el) => a[el] === val));
+  }
   const combine = [
     [0, 1, 2],
     [3, 4, 5],
@@ -444,51 +448,35 @@ function evaluateTicTacToePosition(position) {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  let arrX = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ];
-  let arrO = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
+
+  const arr = [
+    [-1, -1, -1],
+    [-1, -1, -1],
+    [-1, -1, -1],
   ];
   position.forEach((elem, ind) => elem.forEach((el, i) => {
-    if (el === 'X') arrX[ind][i] = 1;
-    if (el === '0') arrO[ind][i] = 1;
+    if (el === 'X') arr[ind][i] = 1;
+    if (el === '0') arr[ind][i] = 0;
   }));
 
-  arrO = arrO.flat(1);
-  arrX = arrX.flat(1);
+  console.log(arr);
 
-  const O = combine.some(
-    (elem) => elem.every(
-      (el) => arrO[el] === 1,
-
-    ),
-  );
-
-  const X = combine.some(
-    (elem) => elem.every(
-      (el) => arrX[el] === 1
-      ,
-    ),
-  );
+  const X = check(combine, arr, 1);
+  const O = check(combine, arr, 0);
 
   if (X) return 'X';
   if (O) return '0';
   return undefined;
 }
 
-/*   console.log(
+/* console.log(
   evaluateTicTacToePosition([
     ['0', 'X', '0'],
     ['X', 'X', '0'],
-    ['0', 'X',],
+    ['0', 'X'],
   ])
-);
-
+); */
+/*
 console.log(
   evaluateTicTacToePosition([
     ['0', '0', '0'],
