@@ -434,7 +434,6 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  let result = 'undefined';
   const combine = [
     [0, 1, 2],
     [3, 4, 5],
@@ -477,9 +476,9 @@ function evaluateTicTacToePosition(position) {
     ),
   );
 
-  if (X) result = 'X';
-  else if (O) result = '0';
-  return result;
+  if (X) return 'X';
+  if (O) return '0';
+  return undefined;
 }
 
 /*   console.log(
@@ -488,14 +487,21 @@ function evaluateTicTacToePosition(position) {
     ['X', 'X', '0'],
     ['0', 'X',],
   ])
-); */
+);
 
-/* console.log(
+console.log(
   evaluateTicTacToePosition([
     ['0', '0', '0'],
     ['', 'X', '0'],
     ['X', ,],
   ])
+); */
+/* console.log(
+  evaluateTicTacToePosition([
+    [, ,],
+    [, ,],
+    [, ,],
+  ]),
 ); */
 
 module.exports = {
