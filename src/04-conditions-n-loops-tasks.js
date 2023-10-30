@@ -459,13 +459,8 @@ function evaluateTicTacToePosition(position) {
     if (el === '0') arr[ind][i] = 0;
   }));
 
-  console.log(arr);
-
-  const X = check(combine, arr, 1);
-  const O = check(combine, arr, 0);
-
-  if (X) return 'X';
-  if (O) return '0';
+  if (check(combine, arr, 1)) return 'X';
+  if (check(combine, arr, 0)) return '0';
   return undefined;
 }
 
