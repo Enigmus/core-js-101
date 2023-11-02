@@ -258,11 +258,16 @@ function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* val */) {
-  // if (val.indexOf('String')) if (typeof val === 'string') return true;
-  // return false;
-  throw new Error('Not implemented');
+function isString(val) {
+  return typeof val === 'string' || val instanceof String;
 }
+
+/* console.log(isString()); // => false
+console.log(isString(null)); // => false
+console.log(isString([])); // => false
+console.log(isString({})); // => false
+console.log(isString('test')); // => true
+console.log(isString(new String('test'))); // => true */
 
 /**
  * Returns playid card id.
