@@ -452,11 +452,22 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  // let arr =
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  let arr = Array(n * n);
+  arr.fill(0);
+  arr = arr.map((el, ind) => (ind % (n + 1) === 0 ? 1 : 0));
+  arr = arr.reduce(
+    (acc, el) => {
+      if (acc[acc.length - 1].length === n) acc.push([]);
+      acc[acc.length - 1].push(el);
+      return acc;
+    },
+    [[]],
+  );
+  return arr;
 }
 
+// console.log(getIdentityMatrix(6));
 /**
  * Creates an array of integers from the specified start to end (inclusive)
  *
@@ -553,9 +564,12 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  if (indexes.length === 1) return arr[indexes[0]];
+  return getElementByIndexes(arr[indexes[0]], indexes.slice(1, indexes.length));
 }
+
+// console.log(getElementByIndexes([[1, 2], [3, 4], [5, 6]], [0,0]));
 
 /**
  * Swaps the head and tail of the specified array:
