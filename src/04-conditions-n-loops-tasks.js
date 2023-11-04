@@ -169,9 +169,13 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  return str.split('').find((el, index, arr) => arr.indexOf(el) === arr.lastIndexOf(el)) || null;
 }
+
+/* console.log(findFirstSingleChar('The quick brown fox jumps over the lazy dog'));
+console.log(findFirstSingleChar('abracadabra'));
+console.log(findFirstSingleChar('entente')); */
 
 /**
  * Returns the string representation of math interval,
@@ -387,7 +391,6 @@ function getMatrixProduct(m1, m2) {
   }
 
   return arr;
-  // throw new Error('Not implemented');
 }
 
 /* console.log(
