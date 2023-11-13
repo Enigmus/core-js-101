@@ -123,10 +123,40 @@ function isTriangle(a, b, c) {
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
+ *
+ * Погуглив узнал, что:
+ * Случай, когда прямоугольники не пересекаются,
+ * возникает когда левая граница пересечения окажется больше правой,
+ * или когда нижняя граница окажется больше верхней.
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  // возможно криво, зато наглядно
+  const x = rect1.left;
+  const x1 = rect1.left + rect1.width; // координата Х правого нижнего угла прямоугольника
+  const y = rect1.top;
+  const y1 = rect1.top + rect1.height; // координата У правого нижнего угла прямоугольника
+
+  const x2 = rect2.left;
+  const x3 = rect2.left + rect2.width;
+  const y2 = rect2.top;
+  const y3 = rect2.top + rect2.height;
+
+  const left = Math.max(x, x2);
+  const right = Math.min(x1, x3);
+  const bottom = Math.max(y, y2);
+  const top = Math.min(y1, y3);
+  // `${left},${top}/${right},${bottom}` координаты пересечения фигур
+  if (left < right && bottom < top) return true;
+
+  return false;
 }
+
+/* console.log(doRectanglesOverlap({
+  top: 0, left: 0, width: 10, height: 10,
+},
+{
+  top: 5, left: 5, width: 20, height: 20,
+})); */
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
